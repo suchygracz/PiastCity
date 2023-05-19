@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538395775736",
+    "project_id": "piastcity",
+    "storage_bucket": "piastcity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538395775736:android:c5ce2a8d5644384c23a10d",
+        "android_client_info": {
+          "package_name": "com.example.piastcity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538395775736-7p0m3ckqmhi7oc1jj2s72eoq63ge6ue3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGr2vjTvs6uAPPUdHdbJXsYM-n8i7QYfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538395775736-7p0m3ckqmhi7oc1jj2s72eoq63ge6ue3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
