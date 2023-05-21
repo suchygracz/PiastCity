@@ -1,0 +1,4 @@
+package eventSearch
+
+class EventSearchActivity {
+}
