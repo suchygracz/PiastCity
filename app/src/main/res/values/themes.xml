@@ -3,6 +3,7 @@
     <style name="Base.Theme.PiastCity" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor" tools:targetApi="1">#CAC406</item>
     </style>
 
     <style name="Theme.PiastCity" parent="Base.Theme.PiastCity" />
