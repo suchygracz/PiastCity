@@ -3,19 +3,68 @@ package com.example.piastcity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import com.example.piastcity.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding;
+    private lateinit var firebaseAuth: FirebaseAuth;
+    private var email: String = ""
+    private var password: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
-        //FirebaseAuth.getInstance().createUserWithEmailAndPassword("testWaplikacji@wp.pl", "123dzialajH");
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        email = binding.loginEmail.text.toString()
+        password = binding.loginPassword.text.toString()
+
     }
 
-    fun Login(view: View) {}
+    fun Login(view: View) {
+        if (isEmailValid(view) and isPasswordValid(view)){
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+            Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
+            val appIntent = Intent(this, AppActivity::class.java)
+            startActivity(appIntent)
+        }
+
+    }
+
+    fun isPasswordValid(view: View): Boolean{
+        password = binding.loginPassword.text.toString()
+        val lowercaseRegex = Regex("[a-z]")
+        val uppercaseRegex = Regex("[A-Z]")
+        val numberRegex = Regex("[0-9]")
+        val specialCharRegex = Regex("[^A-Za-z0-9]")
+
+        val hasLowercase = lowercaseRegex.containsMatchIn(password)
+        val hasUppercase = uppercaseRegex.containsMatchIn(password)
+        val hasNumber = numberRegex.containsMatchIn(password)
+        val hasSpecialChar = specialCharRegex.containsMatchIn(password)
+        val isLongerThan8char = password.length >= 8
+
+        return hasLowercase && hasUppercase && hasNumber && hasSpecialChar && isLongerThan8char
+    }
+
+    fun isEmailValid(view: View): Boolean{
+        email = binding.loginEmail.text.toString()
+        val emailRegex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
+
+        return emailRegex.matches(email)
+    }
+
     fun goToRegisterActivity(view: View) {
-        val intent = Intent(this, RegisterActivity::class.java)
-        startActivity(intent)
+        val registerIntent = Intent(this, RegisterActivity::class.java)
+        startActivity(registerIntent)
     }
 }

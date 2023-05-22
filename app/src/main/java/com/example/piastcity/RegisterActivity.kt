@@ -4,14 +4,80 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
+import android.widget.Toast
+import com.example.piastcity.databinding.ActivityRegisterBinding
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var binding:ActivityRegisterBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+    private var email: String = ""
+    private var password: String = ""
+    private var passwordConfirm: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        firebaseAuth = FirebaseAuth.getInstance()
+        email = binding.registerEmail.text.toString()
+        password = binding.registerPassword.text.toString()
+        passwordConfirm = binding.register2Password.text.toString()
+
     }
 
-    fun Register(view: View) {}
+    fun Signup(view: View) {
+        if (arePasswordsMaching(view) and isEmailValid(view) and isPasswordValid(view)){
+            Toast.makeText(this, "you have been registered succesfully", Toast.LENGTH_LONG).show();
+            firebaseAuth.createUserWithEmailAndPassword(email, password);
+            goToLoginActivity(view)
+        }
+        else{
+            if (!arePasswordsMaching(view)){
+                Toast.makeText(this, "Passwords doesn't match", Toast.LENGTH_LONG).show()
+            }
+            else if (!isEmailValid(view)){
+                Toast.makeText(this, "make sure that e-mail follows this shema _..._@_..._._..._", Toast.LENGTH_LONG).show()
+            }
+            else if(!isPasswordValid(view)){
+                Toast.makeText(this, "Password need to be at least 8 char long and contain a-z and A-Z and 0-9 and Special char", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    }
+    fun arePasswordsMaching(view: View): Boolean{
+        password = binding.registerPassword.text.toString()
+        passwordConfirm = binding.register2Password.text.toString()
+
+        return password==passwordConfirm
+    }
+
+    fun isPasswordValid(view: View): Boolean{
+        password = binding.registerPassword.text.toString()
+        val lowercaseRegex = Regex("[a-z]")
+        val uppercaseRegex = Regex("[A-Z]")
+        val numberRegex = Regex("[0-9]")
+        val specialCharRegex = Regex("[^A-Za-z0-9]")
+
+        val hasLowercase = lowercaseRegex.containsMatchIn(password)
+        val hasUppercase = uppercaseRegex.containsMatchIn(password)
+        val hasNumber = numberRegex.containsMatchIn(password)
+        val hasSpecialChar = specialCharRegex.containsMatchIn(password)
+        val isLongerThan8char = password.length >= 8
+
+        return hasLowercase && hasUppercase && hasNumber && hasSpecialChar && isLongerThan8char
+    }
+
+    fun isEmailValid(view: View): Boolean{
+        email = binding.registerEmail.text.toString()
+        val emailRegex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
+
+        return emailRegex.matches(email)
+    }
 
     fun goToLoginActivity(view: View) {
         val intent = Intent(this, LoginActivity::class.java);
