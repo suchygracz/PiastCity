@@ -4,6 +4,7 @@ import java.util.Date
 
 data class Event(
     val name: String,
+    val owner: String,
     val localization: String,
     val type: EventType,
     val isBooze: Boolean,
