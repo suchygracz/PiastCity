@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.piastcity.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import eventSearch.EventSearchActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         if (isEmailValid(view) and isPasswordValid(view)){
             firebaseAuth.signInWithEmailAndPassword(email, password)
             Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
-            val appIntent = Intent(this, AppActivity::class.java)
+            val appIntent = Intent(this, EventSearchActivity::class.java)
             startActivity(appIntent)
         }
 
