@@ -1,13 +1,13 @@
 package event
 
-import java.util.Date
+import java.time.LocalDateTime
 
 data class Event(
     val name: String,
     val owner: String,
-    val localization: String,
+    val address: String,
     val type: EventType,
     val isBooze: Boolean,
-    val startDT: Date,
-    val endDT: Date
+    val startDT: LocalDateTime,
+    val endDT: LocalDateTime
 )
