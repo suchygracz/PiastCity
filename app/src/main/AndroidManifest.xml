@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name="eventSearch.EventSearchActivity"
-            android:exported="false" />
+            android:exported="true" />
     </application>
 
 </manifest>
