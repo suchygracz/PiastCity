@@ -14,17 +14,24 @@ Dodatkowe:
 Zadania:
 
 
-Wiktor: walidacja logowania (można się zalogować tylko na istniejace w bazie konto)
+Wiktor: 
+-walidacja logowania (można się zalogować tylko na istniejace w bazie konto)
 - stworzenie ui
 - pomoc chłopakom wspólnym tasku(walenie kkkkkkkkonia jasiowi)
 
-Piech: tworzenie i usuwanie eventów i zapisywanie zdjeć do bazy
+Piech: 
+-tworzenie i usuwanie eventów i zapisywanie zdjeć do bazy
 -walenie konia jasiowi
 
-Jaśiek: walenie konia (sobie)
+Jaśiek: 
+-dodawanie przyciskow do eventu (i podpiecie do bazy)
+-pobieranie eventów z bazy danych
+-walenie konia (sobie)
 
-Szymon: api od mapy
+Szymon: 
+-api od mapy
 -walenie konia jasiowi
 
-Janek: przerobienie ui na fragmenty
+Janek: 
+-przerobienie ui na fragmenty
 -walenie konia jasiowi
