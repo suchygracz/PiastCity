@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI"
+    android:background="@drawable/login_bck">
+
+    <TextView
+        android:id="@+id/Uzytkownik"
+        android:layout_width="161dp"
+        android:layout_height="35dp"
+        android:text="użytkownik"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toEndOf="@+id/Avatar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Lokalizacja"
+        android:layout_width="205dp"
+        android:layout_height="28dp"
+        android:text="lokalizacja"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/Uzytkownik"
+        app:layout_constraintTop_toBottomOf="@+id/Uzytkownik" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Lokalizacja"
+        app:srcCompat="@drawable/lewy"
+
+        />
+
+    <ImageButton
+        android:id="@+id/CommentButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/comment_button"
+        app:layout_constraintBottom_toTopOf="@id/LikeButton"
+        app:layout_constraintStart_toStartOf="@id/LikeButton"
+        android:background="@color/fui_transparent"
+        />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/LikeButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        android:background="@drawable/like_switch"
+        style="@style/CustomSwitch"
+        />
+
+    <ImageView
+        android:id="@+id/Avatar"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/Comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Add a comment"
+        app:layout_constraintStart_toStartOf="@+id/Avatar"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
