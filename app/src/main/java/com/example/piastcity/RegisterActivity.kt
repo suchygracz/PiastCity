@@ -9,11 +9,15 @@ import android.widget.Toast
 import com.example.piastcity.databinding.ActivityRegisterBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityRegisterBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firestore = Firebase.firestore
+    private var user: String = ""
     private var email: String = ""
     private var password: String = ""
     private var passwordConfirm: String = ""
@@ -23,17 +27,18 @@ class RegisterActivity : AppCompatActivity() {
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        firebaseAuth = FirebaseAuth.getInstance()
+        user = binding.registerEmail.text.toString()
         email = binding.registerEmail.text.toString()
         password = binding.registerPassword.text.toString()
         passwordConfirm = binding.register2Password.text.toString()
-
     }
 
     fun Signup(view: View) {
         if (arePasswordsMaching(view) and isEmailValid(view) and isPasswordValid(view)){
-            Toast.makeText(this, "you have been registered succesfully", Toast.LENGTH_LONG).show();
-            firebaseAuth.createUserWithEmailAndPassword(email, password);
+            Toast.makeText(this, "you have been registered succesfully", Toast.LENGTH_LONG).show()
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
+                firestore.collection("users").document(user)
+            }
             goToLoginActivity(view)
         }
         else{
@@ -80,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun goToLoginActivity(view: View) {
-        val intent = Intent(this, LoginActivity::class.java);
-        startActivity(intent);
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }
