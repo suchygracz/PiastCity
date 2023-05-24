@@ -1,7 +1,6 @@
 package event
 
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.Exclude
 
 
 data class Event(
@@ -10,7 +9,12 @@ data class Event(
     val address: String? = null,
     val type: EventType? = null,
     @field:JvmField
-    val isBooze: Boolean? = null
-//    val startDT: Timestamp? = null,
-//    val endDT: Timestamp? = null
+    val isBooze: Boolean? = null,
+//    // x coordinate
+//    val longitude: Double? = null,
+//    // y coordinate
+//    val latitude: Double? = null,
+    val creation: Timestamp? = null,
+    val start: Timestamp? = null,
+    val end: Timestamp? = null
 )

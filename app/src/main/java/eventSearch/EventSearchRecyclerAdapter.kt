@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.piastcity.R
-import org.w3c.dom.Text
 import event.Event as PartyEvent
 
 class EventSearchRecyclerAdapter(
