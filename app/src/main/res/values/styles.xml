@@ -4,4 +4,9 @@
         <item name="android:thumb">@android:color/transparent</item>
         <item name="android:track">@drawable/like_switch</item>
     </style>
+    <style name="roundCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+        <item name="color">@color/fui_transparent</item>
+    </style>
 </resources>
