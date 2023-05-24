@@ -1,5 +1,6 @@
 package eventSearch
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,12 +27,13 @@ class EventSearchRecyclerAdapter(
         return events.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: EventSearchViewHolder, position: Int) {
         val event = events[position]
         holder.eventName.text = "Name: " + event.name
         holder.eventAddress.text = "Address: " + event.address
         holder.eventOwner.text = "Owner: " + event.owner
-//        holder.eventType.text = "Type: " + event.type.name
+        holder.eventType.text = "Type: " + event.type!!.name
     }
 
     interface OnItemListener{
