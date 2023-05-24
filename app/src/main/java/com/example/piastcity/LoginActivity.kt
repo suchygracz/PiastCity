@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         if (isEmailValid(view) and isPasswordValid(view)){
             firebaseAuth.signInWithEmailAndPassword(email, password)
             Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
-            val appIntent = Intent(this, EventSearchActivity::class.java)
+            val appIntent = Intent(this, UI::class.java)
             startActivity(appIntent)
         }
 
