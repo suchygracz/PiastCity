@@ -31,7 +31,7 @@ class EventSearchRecyclerAdapter(
         holder.eventName.text = "Name: " + event.name
         holder.eventAddress.text = "Address: " + event.address
         holder.eventOwner.text = "Owner: " + event.owner
-        holder.eventType.text = "Type: " + event.type.name
+//        holder.eventType.text = "Type: " + event.type.name
     }
 
     interface OnItemListener{
