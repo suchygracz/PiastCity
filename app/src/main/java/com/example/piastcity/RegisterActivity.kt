@@ -85,5 +85,7 @@ class RegisterActivity : AppCompatActivity() {
     fun goToLoginActivity(view: View) {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        // zabij aktywność po przejściu dalej
+        finish()
     }
 }
