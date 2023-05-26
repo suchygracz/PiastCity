@@ -16,6 +16,9 @@ import android.widget.CheckBox
 import android.widget.EditText
 import androidx.core.content.FileProvider
 import com.example.piastcity.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import event.Event
 import java.io.File
 import java.util.Calendar
@@ -248,10 +251,12 @@ class EventCreator : AppCompatActivity() {
         val startTS = Timestamp(startDate)
         val endDate = Date(endYear,endMonth,endDay,endHour,endMin)
         val endTS = Timestamp(endDate)
-
+        // TODO - Czekamy aż wiktor załata logowanie do bazy danych
+//        val owner = FirebaseAuth.getInstance().currentUser!!.displayName
+        val owner = "fake"
         val event = Event(
             eventName,
-            "z fb uzytkownik",
+            owner,
             isOutdoor,
             isBooze,
             isPublic,
@@ -261,13 +266,15 @@ class EventCreator : AppCompatActivity() {
             startTS,
             endTS
         )
+        Firebase.firestore.collection("events").add(event)
         return event
     }
 
     //mozna dodac ifa, ktory upewnia sie, ze sa wszystkie dane, ale po co
     fun buttonSave(){
         getData()
-        //sendEvent() -> do firebase
+        sendEvent()
         //eventImage do firebase jako Bitmapa ze zdjeciem
+        finish()
     }
 }
