@@ -20,8 +20,6 @@ import event.Event
 import java.io.File
 import java.util.Calendar
 import java.util.Date
-import kotlin.math.min
-
 
 private const val REQUEST_CODE = 42
 private const val FILE_NAME = "photo.jpg"
@@ -213,7 +211,7 @@ class EventCreator : AppCompatActivity() {
     }
 
     fun buttonSetLocalization(){
-        //funkcja odpala api z mapa i zapisuje jego wynik w longtitude i latitude
+        //funkcja odpala api z mapa i zapisuje jego wynik w zmiennych longtitude i latitude
     }
 
     fun getData(){
@@ -244,9 +242,9 @@ class EventCreator : AppCompatActivity() {
     }
 
     fun sendEvent(): Event{
-        val startDate = Date(startYear, startMonth, startDay, startHour, startMin)
+        val startDate = Date(startYear-1900, startMonth-1, startDay, startHour, startMin)
         val startTS = Timestamp(startDate)
-        val endDate = Date(endYear,endMonth,endDay,endHour,endMin)
+        val endDate = Date(endYear-1900,endMonth-1,endDay,endHour,endMin)
         val endTS = Timestamp(endDate)
 
         val event = Event(
