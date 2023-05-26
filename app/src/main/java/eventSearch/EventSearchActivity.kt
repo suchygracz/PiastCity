@@ -32,6 +32,11 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
         setAddEventOnClickListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+        setSearchView()
+    }
+
     private fun setAddEventOnClickListener() {
         addEventButton = findViewById(R.id.addEventButton)
         addEventButton.setOnClickListener {
@@ -41,7 +46,6 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     }
 
     private fun setSearchView() {
-
         eventList = ArrayList()
         database.collection("events").get().addOnSuccessListener {
             if(it.isEmpty == false) {
