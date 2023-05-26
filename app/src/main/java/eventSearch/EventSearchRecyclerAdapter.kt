@@ -28,10 +28,13 @@ class EventSearchRecyclerAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: EventSearchViewHolder, position: Int) {
         val event = events[position]
+        var type = "Indoor"
+        if(event.isOutdoor == true)
+            type = "Outdoor"
         holder.eventName.text = "Name: " + event.name
-        holder.eventAddress.text = "Address: " + event.address
+       //holder.eventAddress.text = "Address: " + event.address jakos ogarnac wspolprace ze wspolrzednymi
         holder.eventOwner.text = "Owner: " + event.owner
-        holder.eventType.text = "Type: " + event.type!!.name
+        holder.eventType.text = "Type: " + type
     }
 
     interface OnItemListener{

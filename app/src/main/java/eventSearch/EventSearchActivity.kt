@@ -1,5 +1,6 @@
 package eventSearch
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import event.Event
+import eventCreation.EventCreator
 import event.Event as PartyEvent
 
 class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnItemListener {
@@ -32,7 +34,10 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
 
     private fun setAddEventOnClickListener() {
         addEventButton = findViewById(R.id.addEventButton)
-//        addEventButton.setOnClickListener()
+        addEventButton.setOnClickListener {
+            val goToEventCreator = Intent(this, EventCreator::class.java)
+            startActivity(goToEventCreator)
+        }
     }
 
     private fun setSearchView() {
