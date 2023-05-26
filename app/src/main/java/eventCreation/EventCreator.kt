@@ -16,54 +16,57 @@ import android.widget.CheckBox
 import android.widget.EditText
 import androidx.core.content.FileProvider
 import com.example.piastcity.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import event.Event
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.Calendar
 import java.util.Date
-import kotlin.math.min
 
 
-private const val REQUEST_CODE = 42
-private const val FILE_NAME = "photo.jpg"
-private lateinit var photoFile: File
+
 class EventCreator : AppCompatActivity() {
-    lateinit var editTextName: EditText
-    var eventName = ""
-    lateinit var editTextStartDate: EditText
-    var startYear = 0
-    var startMonth = 0
-    var startDay = 0
-    lateinit var editTextStartTime: EditText
-    var startHour = 0
-    var startMin = 0
-    lateinit var editTextEndDate: EditText
-    var endYear = 0
-    var endMonth = 0
-    var endDay = 0
-    lateinit var editTextEndTime: EditText
-    var endHour = 0
-    var endMin = 0
-    lateinit var btnStartDate: Button
-    lateinit var btnStartTime: Button
-    lateinit var btnEndDate: Button
-    lateinit var btnEndTime: Button
-    lateinit var btnTakePic: Button
+    private lateinit var editTextName: EditText
+    private var eventName = ""
+    private lateinit var editTextStartDate: EditText
+    private var startYear = 0
+    private var startMonth = 0
+    private var startDay = 0
+    private lateinit var editTextStartTime: EditText
+    private var startHour = 0
+    private var startMin = 0
+    private lateinit var editTextEndDate: EditText
+    private var endYear = 0
+    private var endMonth = 0
+    private var endDay = 0
+    private lateinit var editTextEndTime: EditText
+    private var endHour = 0
+    private var endMin = 0
+    private lateinit var btnStartDate: Button
+    private lateinit var btnStartTime: Button
+    private lateinit var btnEndDate: Button
+    private lateinit var btnEndTime: Button
+    private lateinit var btnTakePic: Button
 
-    lateinit var btnSave: Button
-    lateinit var cb_isBooze: CheckBox
-    var isBooze = false
-    lateinit var cb_isOutdoor: CheckBox
-    var isOutdoor  = false
-    lateinit var cb_isPublic: CheckBox
-    var isPublic  = false
+    private lateinit var btnSave: Button
+    private lateinit var checkBoxIsBooze: CheckBox
+    private var isBooze = false
+    private lateinit var checkBoxIsOutdoor: CheckBox
+    private var isOutdoor  = false
+    private lateinit var checkBoxIsPublic: CheckBox
+    private var isPublic  = false
 
-    lateinit var eventImage: Bitmap
-    lateinit var btnSetLocation: Button
-    var longtitude = 0.0
-    var latitude = 0.0
+    private val REQUEST_CODE = 42
+    private lateinit var photoFile: File
+    private lateinit var eventImage: Bitmap
+    private lateinit var btnSetLocation: Button
+    private var longitude = 0.0
+    private var latitude = 0.0
+    // TODO - Czekamy aż wiktor załata logowanie
+    // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
+    private val owner = "fake"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +76,7 @@ class EventCreator : AppCompatActivity() {
 
     }
 
-    fun initElements(){
+    private fun initElements(){
         editTextName = findViewById(R.id.editEventName)
         editTextStartDate = findViewById(R.id.in_startDate)
         editTextStartTime = findViewById(R.id.in_startTime)
@@ -84,14 +87,14 @@ class EventCreator : AppCompatActivity() {
         btnEndDate = findViewById(R.id.btn_endDate)
         btnEndTime = findViewById(R.id.btn_endTime)
         btnSave = findViewById(R.id.btn_save)
-        cb_isBooze = findViewById(R.id.checkbox_isBooze)
-        cb_isOutdoor = findViewById(R.id.checkbox_isOutdoor)
+        checkBoxIsBooze = findViewById(R.id.checkbox_isBooze)
+        checkBoxIsOutdoor = findViewById(R.id.checkbox_isOutdoor)
         btnTakePic = findViewById(R.id.btn_takePic)
-        cb_isPublic = findViewById(R.id.checkbox_isPublic)
+        checkBoxIsPublic = findViewById(R.id.checkbox_isPublic)
         btnSetLocation = findViewById(R.id.btn_setLocalization)
     }
 
-    fun setActions(){
+    private fun setActions(){
         btnStartDate.setOnClickListener { buttonStartDate() }
         btnStartTime.setOnClickListener { buttonStartTime() }
         btnEndDate.setOnClickListener { buttonEndDate() }
@@ -101,19 +104,18 @@ class EventCreator : AppCompatActivity() {
         btnSetLocation.setOnClickListener { buttonSetLocalization() }
     }
 
-    fun buttonTakePic(){
+    private fun buttonTakePic(){
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        photoFile = getPhotoFile(FILE_NAME)
+        photoFile = getPhotoFile()
         val fileProvider = FileProvider.getUriForFile(this, "eventCreation.fileprovider", photoFile)
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-
 
         startActivityForResult(takePictureIntent, REQUEST_CODE)
     }
 
-    private fun getPhotoFile(fileName: String): File {
+    private fun getPhotoFile(): File {
         val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(fileName, ".jpg", storageDirectory)
+        return File.createTempFile(owner, ".jpg", storageDirectory)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,13 +127,13 @@ class EventCreator : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun buttonStartDate(){
+    private fun buttonStartDate(){
         val c = Calendar.getInstance()
         startYear = c.get(Calendar.YEAR)
         startMonth = c.get(Calendar.MONTH)
         startDay = c.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ view, year, monthOfYear, dayOfMonth ->
+        val datePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
 
             var month = ""
             if(monthOfYear<9)
@@ -142,18 +144,18 @@ class EventCreator : AppCompatActivity() {
                 day+="0"
             day+=dayOfMonth
             // Display Selected date in textbox
-            editTextStartDate.setText("" + day + "-" + month + "-" + year)
+            editTextStartDate.setText("$day-$month-$year")
 
         }, startYear, startMonth, startDay)
         datePickerDialog.show()
     }
 
-    fun buttonStartTime(){
+    private fun buttonStartTime(){
         val c = Calendar.getInstance()
         startHour = c.get(Calendar.HOUR)
         startMin = c.get(Calendar.MINUTE)
 
-        val timePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+        val timePickerDialog = TimePickerDialog(this, { _, hour, minute ->
 
             var viewHour = ""
             if(hour<10)
@@ -165,18 +167,18 @@ class EventCreator : AppCompatActivity() {
                 viewMinute+="0"
             viewMinute+= minute
 
-            editTextStartTime.setText(""+viewHour+":"+viewMinute)
+            editTextStartTime.setText("$viewHour:$viewMinute")
         }, startHour, startMin, true)
         timePickerDialog.show()
     }
 
-    fun buttonEndDate(){
+    private fun buttonEndDate(){
         val c = Calendar.getInstance()
         endYear = c.get(Calendar.YEAR)
         endMonth = c.get(Calendar.MONTH)
         endDay = c.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ view, year, monthOfYear, dayOfMonth ->
+        val datePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
 
             var month = ""
             if(monthOfYear<9)
@@ -187,18 +189,18 @@ class EventCreator : AppCompatActivity() {
                 day+="0"
             day+=dayOfMonth
             // Display Selected date in textbox
-            editTextEndDate.setText("" + day + "-" + month + "-" + year)
+            editTextEndDate.setText("$day-$month-$year")
 
         }, endYear, endMonth, endDay)
         datePickerDialog.show()
     }
 
-    fun buttonEndTime(){
+    private fun buttonEndTime(){
         val c = Calendar.getInstance()
         endHour = c.get(Calendar.HOUR)
         endMin = c.get(Calendar.MINUTE)
 
-        val timePickerDialog = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+        val timePickerDialog = TimePickerDialog(this, { _, hour, minute ->
 
             var viewHour = ""
             if(hour<10)
@@ -210,16 +212,16 @@ class EventCreator : AppCompatActivity() {
                 viewMinute+="0"
             viewMinute+= minute
 
-            editTextEndTime.setText(""+viewHour+":"+viewMinute)
+            editTextEndTime.setText("$viewHour:$viewMinute")
         }, endHour, endMin, true)
         timePickerDialog.show()
     }
 
-    fun buttonSetLocalization(){
+    private fun buttonSetLocalization(){
         //funkcja odpala api z mapa i zapisuje jego wynik w longtitude i latitude
     }
 
-    fun getData(){
+    private fun getData(){
         eventName = editTextName.text.toString()
         val arrStartDate = editTextStartDate.text.toString().split("-")
         startDay = Integer.parseInt(arrStartDate[0])
@@ -236,31 +238,28 @@ class EventCreator : AppCompatActivity() {
         endHour = Integer.parseInt(arrEndTime[0])
         endMin = Integer.parseInt(arrEndTime[1])
 
-        if(cb_isBooze.isChecked)
+        if(checkBoxIsBooze.isChecked)
             isBooze=true
-        if(cb_isOutdoor.isChecked)
+        if(checkBoxIsOutdoor.isChecked)
             isOutdoor=true
-        if(cb_isPublic.isChecked)
+        if(checkBoxIsPublic.isChecked)
             isPublic=true
 
         //longtitude i latitude pobrane z api z mapy
     }
 
-    fun sendEvent(): Event{
+    private fun sendEvent(): Event{
         val startDate = Date(startYear, startMonth, startDay, startHour, startMin)
         val startTS = Timestamp(startDate)
         val endDate = Date(endYear,endMonth,endDay,endHour,endMin)
         val endTS = Timestamp(endDate)
-        // TODO - Czekamy aż wiktor załata logowanie do bazy danych
-//        val owner = FirebaseAuth.getInstance().currentUser!!.displayName
-        val owner = "fake"
         val event = Event(
             eventName,
             owner,
             isOutdoor,
             isBooze,
             isPublic,
-            longtitude, //x pobrane z mapy
+            longitude, //x pobrane z mapy
             latitude, //y pobrane z mapy
             Timestamp.now(),
             startTS,
@@ -270,11 +269,21 @@ class EventCreator : AppCompatActivity() {
         return event
     }
 
-    //mozna dodac ifa, ktory upewnia sie, ze sa wszystkie dane, ale po co
-    fun buttonSave(){
+    private fun sendImage() {
+        val baos = ByteArrayOutputStream()
+        eventImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imagesRef = storageRef.child("images/$owner.jpg")
+
+        imagesRef.putBytes(data)
+    }
+
+    private fun buttonSave(){
         getData()
         sendEvent()
-        //eventImage do firebase jako Bitmapa ze zdjeciem
+        sendImage()
         finish()
     }
 }
