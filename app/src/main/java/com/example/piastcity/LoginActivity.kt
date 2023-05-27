@@ -34,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
             val appIntent = Intent(this, UI::class.java)
             startActivity(appIntent)
+            // zabij aktywność po przejściu dalej
+            finish()
         }
 
     }
