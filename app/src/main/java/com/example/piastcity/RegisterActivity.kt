@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.piastcity.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -37,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
                 firestore.collection("users").document(user)
             }
+            val user: FirebaseUser? = firebaseAuth.currentUser
             goToLoginActivity(view)
         }
         else{

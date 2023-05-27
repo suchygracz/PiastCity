@@ -62,16 +62,16 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
 
         orientationEventListener?.disable()
     }
-
+//val linearLayoutManager = ZoomRecyclerLayout(this)
     private fun setRecycler() {
-        val linearLayoutManager = ZoomRecyclerLayout(this)
+        val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
 
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(recyclerView)
+//        val snapHelper = LinearSnapHelper()
+//        snapHelper.attachToRecyclerView(recyclerView)
         recyclerView.isNestedScrollingEnabled = false
 
     }
