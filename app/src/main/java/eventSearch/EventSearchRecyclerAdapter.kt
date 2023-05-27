@@ -31,21 +31,22 @@ class EventSearchRecyclerAdapter(
         var type = "Indoor"
         if(event.isOutdoor == true)
             type = "Outdoor"
-        holder.eventName.text = "Name: " + event.name
+        holder.eventName.text = "Name: ${event.name}"
        //holder.eventAddress.text = "Address: " + event.address jakos ogarnac wspolprace ze wspolrzednymi
-        holder.eventOwner.text = "Owner: " + event.owner
-        holder.eventType.text = "Type: " + type
+        holder.eventOwner.text = "Owner: ${event.owner}"
+        holder.eventType.text = "Type: $type"
     }
 
     interface OnItemListener{
         fun onItemClick(position: Int, event: PartyEvent)
+        fun onItemLongClick(position: Int, event: PartyEvent)
     }
 
     class EventSearchViewHolder(
         itemView: View,
         onItemListener: OnItemListener,
         events: ArrayList<PartyEvent>
-    ): RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    ): RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
         private val onItemListener: OnItemListener
         private val events: ArrayList<PartyEvent>
         val eventName: TextView
@@ -56,6 +57,7 @@ class EventSearchRecyclerAdapter(
             this.events = events
             this.onItemListener = onItemListener
             itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
 
             //visible content
             eventName = itemView.findViewById(R.id.eventName)
@@ -68,5 +70,9 @@ class EventSearchRecyclerAdapter(
             onItemListener.onItemClick(adapterPosition, events[adapterPosition])
         }
 
+        override fun onLongClick(v: View?): Boolean {
+            onItemListener.onItemLongClick(adapterPosition, events[adapterPosition])
+            return true
+        }
     }
 }
