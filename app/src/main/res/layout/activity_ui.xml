@@ -37,19 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Lokalizacja"
         app:srcCompat="@drawable/lewy"
-        android:background="@drawable/roundstyle"/>
-        app:shapeApperanceOverlay="@style/roundCorners"
-        />
-
-    <ImageButton
-        android:id="@+id/CommentButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/comment_button"
-        app:layout_constraintBottom_toTopOf="@id/LikeButton"
-        app:layout_constraintStart_toStartOf="@id/LikeButton"
-        android:background="@color/fui_transparent"
         />
 
     <ImageButton
@@ -62,6 +49,17 @@
         android:src="@drawable/map_button"
         app:layout_constraintStart_toStartOf="@id/LikeButton"
         app:layout_constraintTop_toTopOf="@id/imageView" />
+
+    <ImageButton
+        android:id="@+id/CommentButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/comment_button"
+        app:layout_constraintBottom_toTopOf="@id/LikeButton"
+        app:layout_constraintStart_toStartOf="@id/LikeButton"
+        android:background="@color/fui_transparent"
+        />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/LikeButton"
@@ -85,13 +83,13 @@
         android:background="@drawable/roundstyle"
         />
 
-    <EditText
-        android:id="@+id/Comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Add a comment"
-        app:layout_constraintStart_toStartOf="@+id/Avatar"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+<!--    <EditText-->
+<!--        android:id="@+id/Comments"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="text"-->
+<!--        android:text="Add a comment"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/Avatar"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
