@@ -4,6 +4,9 @@ import com.google.firebase.Timestamp
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -208,6 +211,10 @@ class EventCreator : AppCompatActivity() {
 
     private fun buttonSetLocalization(){
         //funkcja odpala api z mapa i zapisuje jego wynik w longtitude i latitude
+
+        var intent = Intent(android.content.Intent.ACTION_VIEW,
+            Uri.parse("http://maps.google.com/maps?"))
+        startActivity(intent)
     }
 
     private fun getData(){
