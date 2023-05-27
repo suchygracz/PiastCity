@@ -1,12 +1,19 @@
 package com.example.piastcity
 // login screen
+// login with credentials todo
+// nazwa uzytkownika
+// zeby nazwy uzytkownika sie nie duplikowaly
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.piastcity.databinding.ActivityLoginBinding
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import eventSearch.EventSearchActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -30,14 +37,34 @@ class LoginActivity : AppCompatActivity() {
 
     fun Login(view: View) {
         if (isEmailValid(view) and isPasswordValid(view)){
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-            Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
-            val appIntent = Intent(this, UI::class.java)
-            startActivity(appIntent)
-            // zabij aktywność po przejściu dalej
-            finish()
+            //firebaseAuth.signInWithEmailAndPassword(email, password)
+            //Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
+            //val user: FirebaseUser? = firebaseAuth.currentUser
+            loginUser(email, password)
+
         }
 
+    }
+    private fun loginUser(email: String, password: String) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task: Task<AuthResult> ->
+                if (task.isSuccessful) {
+                    // Login successful
+                    val user: FirebaseUser? = firebaseAuth.currentUser
+                    // You can perform additional operations here, such as retrieving user data
+                    val appIntent = Intent(this, UI::class.java)
+                    startActivity(appIntent)
+                    // zabij aktywność po przejściu dalej
+                    finish()
+                } else {
+                    // Login failed
+                    Toast.makeText(
+                        applicationContext,
+                        "Login failed. ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     fun isPasswordValid(view: View): Boolean{
