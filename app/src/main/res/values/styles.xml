@@ -9,4 +9,7 @@
         <item name="cornerSize">30dp</item>
         <item name="color">@color/fui_transparent</item>
     </style>
+    <style name="Button.Yellow" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/darkyellow</item>
+    </style>
 </resources>

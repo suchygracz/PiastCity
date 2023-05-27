@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.piastcity.databinding.ActivityRegisterBinding
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
@@ -38,8 +40,9 @@ class RegisterActivity : AppCompatActivity() {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
                 firestore.collection("users").document(user)
             }
-            val user: FirebaseUser? = firebaseAuth.currentUser
-            goToLoginActivity(view)
+            Thread.sleep(5000)
+            loginUser(email, password)
+            goToCreateUserActivity(view)
         }
         else{
             if (!arePasswordsMaching(view)){
@@ -53,6 +56,25 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun loginUser(email: String, password: String) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task: Task<AuthResult> ->
+                if (task.isSuccessful) {
+                    // Login successful
+                    val user: FirebaseUser? = firebaseAuth.currentUser
+                    // You can perform additional operations here, such as retrieving user data
+
+                } else {
+                    // Login failed
+                    Toast.makeText(
+                        applicationContext,
+                        "Login failed. ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
     fun arePasswordsMaching(view: View): Boolean{
         password = binding.registerPassword.text.toString()
@@ -89,5 +111,12 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(intent)
         // zabij aktywność po przejściu dalej
         finish()
+    }
+
+    fun goToCreateUserActivity(view: View){
+        val userCreateIntent = Intent(this, UserCreate::class.java)
+        startActivity(userCreateIntent)
+        // zabij aktywność po przejściu dalej
+
     }
 }
