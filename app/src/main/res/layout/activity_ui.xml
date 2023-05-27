@@ -55,17 +55,18 @@
         android:id="@+id/CommentButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/fui_transparent"
         android:scaleType="centerCrop"
         android:src="@drawable/comment_button"
         app:layout_constraintBottom_toTopOf="@id/LikeButton"
-        app:layout_constraintStart_toStartOf="@id/LikeButton"
-        android:background="@color/fui_transparent"
-        />
+        app:layout_constraintStart_toStartOf="@id/LikeButton" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/LikeButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         android:background="@drawable/like_switch"

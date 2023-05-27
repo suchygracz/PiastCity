@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,21 +14,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PiastCity"
         tools:targetApi="31">
+        <activity
+            android:name=".UserCreate"
+            android:exported="false" />
+
         <provider
-            android:authorities="eventCreation.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="eventCreation.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/fileprovider"/>
+                android:resource="@xml/fileprovider" />
         </provider>
+
         <activity
             android:name="eventCreation.EventCreator"
             android:exported="false" />
         <activity
             android:name=".UI"
-            android:exported="false"></activity>
+            android:exported="true" />
         <activity
             android:name=".AppActivity"
             android:exported="false" />
@@ -46,6 +52,10 @@
         <activity
             android:name="eventSearch.EventSearchActivity"
             android:exported="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
