@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI"
-    android:background="@drawable/login_bck">
+    android:background="#000000">
 
     <TextView
         android:id="@+id/Uzytkownik"
@@ -22,6 +22,7 @@
         android:layout_width="205dp"
         android:layout_height="28dp"
         android:text="lokalizacja"
+        android:onClick="goToMaps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/Uzytkownik"
