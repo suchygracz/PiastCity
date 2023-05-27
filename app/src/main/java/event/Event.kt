@@ -20,4 +20,5 @@ data class Event(
     val creation: Timestamp? = null,
     val start: Timestamp? = null,
     val end: Timestamp? = null,
+    var imageUrl: String? = null
 )

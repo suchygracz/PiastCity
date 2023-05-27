@@ -11,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import com.example.piastcity.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -60,7 +62,6 @@ class EventCreator : AppCompatActivity() {
 
     private val REQUEST_CODE = 42
     private lateinit var photoFile: File
-    private lateinit var eventImage: Bitmap
     private lateinit var btnSetLocation: Button
     private var longitude = 0.0
     private var latitude = 0.0
@@ -73,7 +74,6 @@ class EventCreator : AppCompatActivity() {
         setContentView(R.layout.activity_event_creator)
         initElements()
         setActions()
-
     }
 
     private fun initElements(){
@@ -116,15 +116,6 @@ class EventCreator : AppCompatActivity() {
     private fun getPhotoFile(): File {
         val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(owner, ".jpg", storageDirectory)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            //Bitmapa ze zdjeciem
-            eventImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-            //przykladowo imageView.setImageBitmap(takenImage)
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun buttonStartDate(){
@@ -248,42 +239,37 @@ class EventCreator : AppCompatActivity() {
         //longtitude i latitude pobrane z api z mapy
     }
 
-    private fun sendEvent(): Event{
-        val startDate = Date(startYear, startMonth, startDay, startHour, startMin)
-        val startTS = Timestamp(startDate)
-        val endDate = Date(endYear,endMonth,endDay,endHour,endMin)
-        val endTS = Timestamp(endDate)
-        val event = Event(
-            eventName,
-            owner,
-            isOutdoor,
-            isBooze,
-            isPublic,
-            longitude, //x pobrane z mapy
-            latitude, //y pobrane z mapy
-            Timestamp.now(),
-            startTS,
-            endTS
-        )
-        Firebase.firestore.collection("events").add(event)
-        return event
-    }
-
-    private fun sendImage() {
-        val baos = ByteArrayOutputStream()
-        eventImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
+    private fun sendEvent() {
         val storageRef = FirebaseStorage.getInstance().reference
         val imagesRef = storageRef.child("images/$owner.jpg")
 
-        imagesRef.putBytes(data)
+        imagesRef.putFile(photoFile.toUri())
+        imagesRef.downloadUrl.addOnSuccessListener {
+            val startDate = Date(startYear-1900, startMonth-1, startDay, startHour, startMin)
+            val startTS = Timestamp(startDate)
+            val endDate = Date(endYear-1900,endMonth-1,endDay,endHour,endMin)
+            val endTS = Timestamp(endDate)
+            val event = Event(
+                eventName,
+                owner,
+                isOutdoor,
+                isBooze,
+                isPublic,
+                longitude, //x pobrane z mapy
+                latitude, //y pobrane z mapy
+                Timestamp.now(),
+                startTS,
+                endTS,
+                it.toString()
+            )
+
+            Firebase.firestore.collection("testEvent").add(event)
+        }
     }
 
     private fun buttonSave(){
         getData()
         sendEvent()
-        sendImage()
         finish()
     }
 }
