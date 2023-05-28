@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
+
     private lateinit var binding:ActivityRegisterBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firestore = Firebase.firestore

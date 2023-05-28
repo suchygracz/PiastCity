@@ -7,6 +7,7 @@ package com.example.piastcity
 import User.UserCreate
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,11 +17,13 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import eventSearch.EventSearchActivity
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var firestore: FirebaseFirestore;
+    private var firestore = Firebase.firestore;
     private lateinit var binding: ActivityLoginBinding;
     private lateinit var firebaseAuth: FirebaseAuth;
     private var email: String = ""
@@ -45,15 +48,21 @@ class LoginActivity : AppCompatActivity() {
             //Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
             //val user: FirebaseUser? = firebaseAuth.currentUser
             loginUser(email, password)
-            goToCreateUser(view)
 
-
-
-
+            firestore.collection("users")
+                .whereEqualTo("firebaseUser", email)
+                .get()
+                .addOnSuccessListener {
+                    if(!it.isEmpty)
+                        goToApp(view)
+                    else
+                        goToCreateUser(view)
+                }
         }
 
     }
     private fun loginUser(email: String, password: String) {
+        Log.i("DUP", email)
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task: Task<AuthResult> ->
                 if (task.isSuccessful) {
