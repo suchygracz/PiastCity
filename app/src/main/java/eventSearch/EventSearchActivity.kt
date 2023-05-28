@@ -25,7 +25,6 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventList: ArrayList<PartyEvent>
     private var orientationEventListener: OrientationEventListener? = null
-    // TODO - Czekamy aż wiktor załata logowanie
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
 //    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
     private val owner = "fryta"
