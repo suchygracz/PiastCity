@@ -39,10 +39,6 @@
             android:label="MapsActivity" />
 
         <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
-        <activity
             android:name="User.UserCreate"
             android:exported="true" />
 
