@@ -24,23 +24,12 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import eventCreation.EventCreator
 
-/**
- * This demo shows how GMS Location can be used to check for changes to the users location.  The
- * "My Location" button uses GMS Location to set the blue dot representing the users location.
- * Permission for [Manifest.permission.ACCESS_FINE_LOCATION] and [Manifest.permission.ACCESS_COARSE_LOCATION]
- * are requested at run time. If either permission is not granted, the Activity is finished with an error message.
- */
 class MyLocationDemoActivity : AppCompatActivity(),
     OnMyLocationButtonClickListener,
     OnMyLocationClickListener, OnMapReadyCallback,
     OnRequestPermissionsResultCallback {
-    /**
-     * Flag indicating whether a requested permission has been denied after returning in
-     * [.onRequestPermissionsResult].
-     */
     private var permissionDenied = false
     private lateinit var map: GoogleMap
-    private var ischosen = false
     private lateinit var chooseBtn : Button
     private lateinit var marker: Marker
     private var isCreator: Boolean = false
@@ -52,8 +41,6 @@ class MyLocationDemoActivity : AppCompatActivity(),
         mapFragment?.getMapAsync(this)
 
         chooseBtn = findViewById(R.id.btn_choose)
-
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -81,16 +68,13 @@ class MyLocationDemoActivity : AppCompatActivity(),
 
     private fun btn_choose(data: LatLng)
     {
-        var returnIntent = Intent(this, EventCreator::class.java)
+        val returnIntent = Intent(this, EventCreator::class.java)
         returnIntent.putExtra("longitude", data.longitude.toString())
         returnIntent.putExtra("latitude", data.latitude.toString())
         startActivity(returnIntent)
         finish()
     }
 
-    /**
-     * Enables the My Location layer if the fine location permission has been granted.
-     */
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
 
@@ -188,19 +172,11 @@ class MyLocationDemoActivity : AppCompatActivity(),
         }
     }
 
-    /**
-     * Displays a dialog with error message explaining that the location permission is missing.
-     */
     private fun showMissingPermissionError() {
         newInstance(true).show(supportFragmentManager, "dialog")
     }
 
     companion object {
-        /**
-         * Request code for location permission request.
-         *
-         * @see .onRequestPermissionsResult
-         */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 }

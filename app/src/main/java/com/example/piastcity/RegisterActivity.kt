@@ -57,43 +57,6 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-//    private fun loginUser(email: String, password: String) {
-//        firebaseAuth.signInWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(this) { task: Task<AuthResult> ->
-//                if (task.isSuccessful) {
-//                    // Login successful
-//                    val user: FirebaseUser? = firebaseAuth.currentUser
-//                    // You can perform additional operations here, such as retrieving user data
-//
-//                } else {
-//                    // Login failed
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "Login failed. ${task.exception?.message}",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//    }
-
-//    private fun loginUser(email: String, password: String) {
-//        firebaseAuth.signInWithEmailAndPassword(email, password)
-//            .addOnSuccessListener {
-//
-//                // Login successful
-//                val user: FirebaseUser? = firebaseAuth.currentUser
-//                // You can perform additional operations here, such as retrieving user data
-//            }
-//            .addOnFailureListener {
-//                // Login failed
-//                Toast.makeText(
-//                    applicationContext,
-//                    "Login failed.}",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//
-//    }
     fun arePasswordsMaching(view: View): Boolean{
         password = binding.registerPassword.text.toString()
         passwordConfirm = binding.register2Password.text.toString()

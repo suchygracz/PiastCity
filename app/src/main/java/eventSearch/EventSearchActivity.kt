@@ -24,9 +24,6 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     private lateinit var refreshButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventList: ArrayList<PartyEvent>
-    // TODO - Czekamy aż wiktor załata logowanie zalatane kurwa
-    // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
-//    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
     private val email = FirebaseAuth.getInstance().currentUser!!.email
 
     override fun onResume() {
@@ -45,7 +42,6 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
         setButtons()
     }
 
-//val linearLayoutManager = ZoomRecyclerLayout(this)
     private fun setRecycler() {
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -53,8 +49,6 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
         linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
 
-//        val snapHelper = LinearSnapHelper()
-//        snapHelper.attachToRecyclerView(recyclerView)
         recyclerView.isNestedScrollingEnabled = false
 
     }
