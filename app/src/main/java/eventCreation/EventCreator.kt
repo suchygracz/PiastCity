@@ -67,7 +67,7 @@ class EventCreator : AppCompatActivity() {
     // TODO - Czekamy aż wiktor załata logowanie
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
 //    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
-    private val owner = "fryta"
+    private val owner = FirebaseAuth.getInstance().currentUser!!.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
