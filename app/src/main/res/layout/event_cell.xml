@@ -71,10 +71,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/eventImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/lewy" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 </LinearLayout>
