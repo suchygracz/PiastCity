@@ -20,6 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import event.Event
+import eventSearch.EventSearchActivity
 import java.io.File
 import java.util.Calendar
 import java.util.Date
@@ -259,7 +260,8 @@ class EventCreator : AppCompatActivity() {
                 endTS,
                 it.toString()
             )
-            Firebase.firestore.collection("events").add(event).addOnFailureListener{
+            Firebase.firestore.collection("events").add(event)
+                .addOnFailureListener{
                 Toast.makeText(
                     this,
                     "Fail while adding event to database!",
