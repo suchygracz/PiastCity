@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import event.Event
 import eventCreation.EventCreator
 import www.sanju.zoomrecyclerlayout.ZoomRecyclerLayout
@@ -86,6 +87,7 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
 //        && removeImageFromDatabase(event)
 //        if(removeEventFromDatabase(event)) {
             removeEventFromDatabase(event)
+            removeImageFromStorage(event)
             eventList.removeAt(position)
             recyclerView.adapter!!.notifyItemRemoved(position)
         //            Toast.makeText(this, "Delete successfully!", Toast.LENGTH_LONG).show()
@@ -95,15 +97,17 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
 //        }
     }
 
-//    private fun removeImageFromDatabase(event: Event):Boolean {
-//        //TODO - connect image with event
-//    }
+    private fun removeImageFromStorage(event: Event) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        event.imageUrl?.let { storageRef.storage.getReferenceFromUrl(it).delete() }
+        //return result
+    }
 
     private fun removeEventFromDatabase(event: Event):Boolean {
         var result = false
         database.collection("events")
             .whereEqualTo("name", event.name)
-            .whereEqualTo("owner", owner)
+            //.whereEqualTo("owner", owner)
             .whereEqualTo("creation", event.creation)
             .get().addOnSuccessListener {documents ->
                 if(!documents.isEmpty) {
