@@ -15,8 +15,8 @@
         android:theme="@style/Theme.PiastCity"
         tools:targetApi="31">
         <activity
-            android:name=".UserCreate"
-            android:exported="false" />
+            android:name="User.UserCreate"
+            android:exported="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
