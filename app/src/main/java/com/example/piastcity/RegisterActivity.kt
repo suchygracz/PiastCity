@@ -38,12 +38,9 @@ class RegisterActivity : AppCompatActivity() {
     fun Signup(view: View) {
         if (arePasswordsMaching(view) and isEmailValid(view) and isPasswordValid(view)){
             Toast.makeText(this, "you have been registered succesfully", Toast.LENGTH_LONG).show()
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                firestore.collection("users").document(user)
-            }
-            Thread.sleep(5000)
-            loginUser(email, password)
-            goToCreateUserActivity(view)
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+            //loginUser(email, password)
+            goToLoginActivity(view)
         }
         else{
             if (!arePasswordsMaching(view)){
@@ -59,24 +56,43 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun loginUser(email: String, password: String) {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task: Task<AuthResult> ->
-                if (task.isSuccessful) {
-                    // Login successful
-                    val user: FirebaseUser? = firebaseAuth.currentUser
-                    // You can perform additional operations here, such as retrieving user data
+//    private fun loginUser(email: String, password: String) {
+//        firebaseAuth.signInWithEmailAndPassword(email, password)
+//            .addOnCompleteListener(this) { task: Task<AuthResult> ->
+//                if (task.isSuccessful) {
+//                    // Login successful
+//                    val user: FirebaseUser? = firebaseAuth.currentUser
+//                    // You can perform additional operations here, such as retrieving user data
+//
+//                } else {
+//                    // Login failed
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "Login failed. ${task.exception?.message}",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//    }
 
-                } else {
-                    // Login failed
-                    Toast.makeText(
-                        applicationContext,
-                        "Login failed. ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-    }
+//    private fun loginUser(email: String, password: String) {
+//        firebaseAuth.signInWithEmailAndPassword(email, password)
+//            .addOnSuccessListener {
+//
+//                // Login successful
+//                val user: FirebaseUser? = firebaseAuth.currentUser
+//                // You can perform additional operations here, such as retrieving user data
+//            }
+//            .addOnFailureListener {
+//                // Login failed
+//                Toast.makeText(
+//                    applicationContext,
+//                    "Login failed.}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//
+//    }
     fun arePasswordsMaching(view: View): Boolean{
         password = binding.registerPassword.text.toString()
         passwordConfirm = binding.register2Password.text.toString()
@@ -118,6 +134,7 @@ class RegisterActivity : AppCompatActivity() {
         val userCreateIntent = Intent(this, UserCreate::class.java)
         startActivity(userCreateIntent)
         // zabij aktywność po przejściu dalej
+        finish()
 
     }
 }
