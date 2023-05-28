@@ -64,6 +64,7 @@ class EventSearchRecyclerAdapter(
             itemView.setOnLongClickListener(this)
 
             //visible content
+
             eventName = itemView.findViewById(R.id.eventNamee)
             eventOwner = itemView.findViewById(R.id.Uzytkownik)
             eventAddress = itemView.findViewById(R.id.Localization)
