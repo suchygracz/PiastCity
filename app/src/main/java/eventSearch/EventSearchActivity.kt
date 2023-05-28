@@ -2,11 +2,8 @@ package eventSearch
 
 import android.content.Intent
 import android.os.Bundle
-<<<<<<< HEAD
 import android.view.OrientationEventListener
-=======
 import android.widget.Button
->>>>>>> b153fdf (Add refresh button to recycler layout)
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
