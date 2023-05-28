@@ -17,6 +17,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import com.example.piastcity.MapsActivity
 import com.example.piastcity.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -210,11 +211,8 @@ class EventCreator : AppCompatActivity() {
 
 
     private fun buttonSetLocalization(){
-        //funkcja odpala api z mapa i zapisuje jego wynik w longtitude i latitude
-
-        var intent = Intent(android.content.Intent.ACTION_VIEW,
-            Uri.parse("http://maps.google.com/maps?"))
-        startActivity(intent)
+        val mapsIntent = Intent(this, MapsActivity::class.java)
+        startActivity(mapsIntent)
     }
 
     private fun getData(){
