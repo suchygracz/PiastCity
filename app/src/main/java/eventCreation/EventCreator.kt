@@ -1,28 +1,25 @@
 package eventCreation
 
 import com.google.firebase.Timestamp
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.example.piastcity.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import event.Event
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.Calendar
 import java.util.Date
@@ -66,7 +63,8 @@ class EventCreator : AppCompatActivity() {
     private var latitude = 0.0
     // TODO - Czekamy aż wiktor załata logowanie
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
-    private val owner = "fake"
+//    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
+    private val owner = "fryta"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -261,8 +259,13 @@ class EventCreator : AppCompatActivity() {
                 endTS,
                 it.toString()
             )
-
-            Firebase.firestore.collection("testEvent").add(event)
+            Firebase.firestore.collection("events").add(event).addOnFailureListener{
+                Toast.makeText(
+                    this,
+                    "Fail while adding event to database!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 

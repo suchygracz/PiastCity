@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.piastcity.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -26,7 +27,8 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     private var orientationEventListener: OrientationEventListener? = null
     // TODO - Czekamy aż wiktor załata logowanie
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
-    private val owner = "fake"
+//    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
+    private val owner = "fryta"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
