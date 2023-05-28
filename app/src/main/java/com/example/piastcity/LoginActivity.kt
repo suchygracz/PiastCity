@@ -4,6 +4,7 @@ package com.example.piastcity
 // nazwa uzytkownika
 // zeby nazwy uzytkownika sie nie duplikowaly
 
+import User.UserCreate
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -14,14 +15,17 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import eventSearch.EventSearchActivity
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var firestore: FirebaseFirestore;
     private lateinit var binding: ActivityLoginBinding;
     private lateinit var firebaseAuth: FirebaseAuth;
     private var email: String = ""
     private var password: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -41,6 +45,10 @@ class LoginActivity : AppCompatActivity() {
             //Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
             //val user: FirebaseUser? = firebaseAuth.currentUser
             loginUser(email, password)
+            goToCreateUser(view)
+
+
+
 
         }
 
@@ -51,11 +59,9 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Login successful
                     val user: FirebaseUser? = firebaseAuth.currentUser
+                    Toast.makeText(this,"login succesful", Toast.LENGTH_LONG)
                     // You can perform additional operations here, such as retrieving user data
-                    val appIntent = Intent(this, EventSearchActivity::class.java)
-                    startActivity(appIntent)
-                    // zabij aktywność po przejściu dalej
-                    finish()
+
                 } else {
                     // Login failed
                     Toast.makeText(
@@ -94,4 +100,18 @@ class LoginActivity : AppCompatActivity() {
         val registerIntent = Intent(this, RegisterActivity::class.java)
         startActivity(registerIntent)
     }
+
+    fun goToApp(view: View){
+        val appIntent = Intent(this, EventSearchActivity::class.java)
+        startActivity(appIntent)
+        // zabij aktywność po przejściu dalej
+        finish()
+    }
+
+    fun goToCreateUser(view: View){
+        val crtIntent = Intent(this, UserCreate::class.java)
+        startActivity(crtIntent)
+        finish()
+    }
+
 }

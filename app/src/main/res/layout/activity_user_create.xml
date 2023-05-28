@@ -41,14 +41,15 @@
         android:id="@+id/userPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="takeUserPhoto"
         android:text="take a photo"
         android:textColor="@color/darkyellow"
         app:backgroundTint="#fffADA"
-        android:onClick="takeUserPhoto"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.711"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintVertical_bias="0.711" />
 
     <Button
         android:id="@+id/saveUser"
@@ -56,6 +57,7 @@
         android:layout_height="wrap_content"
         android:text="Save profile"
         android:textColor="@color/darkyellow"
+        android:onClick="saveProfile"
         app:backgroundTint="#fffADA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

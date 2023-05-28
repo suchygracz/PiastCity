@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.example.piastcity.R
@@ -42,14 +43,14 @@ class UserCreate : AppCompatActivity() {
 
     private fun getData(){
         username = binding.userNameInput.text.toString();
-        firebaseUser = firebaseAuth.currentUser.toString()
+        firebaseUser = firebaseAuth.currentUser!!.uid
         userPhoto = getPhotoFile()
 
     }
 
-    private fun sendEvent() {
+    private fun sendUser() {
         val storageRef = FirebaseStorage.getInstance().reference
-        val imagesRef = storageRef.child("images/$owner.jpg")
+        val imagesRef = storageRef.child("users/$owner.jpg")
         imagesRef.putFile(userPhoto.toUri())
         imagesRef.downloadUrl.addOnSuccessListener {
             val user = User(
@@ -58,13 +59,11 @@ class UserCreate : AppCompatActivity() {
                 imageUrl
             )
 
-            Firebase.firestore.collection("testUser").add(user)
+            Firebase.firestore.collection("users").add(user)
         }
-    }
-    private fun buttonSave(){
-        getData()
-        sendEvent()
-        finish()
+        //.addOnFailureListener {
+        //                Toast.makeText(this, "huj nie udalo sie", Toast.LENGTH_LONG).show()
+        //            }
     }
 
     fun takeUserPhoto(view: View) {
@@ -74,5 +73,11 @@ class UserCreate : AppCompatActivity() {
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
         startActivityForResult(takePictureIntent, REQUEST_CODE)
+    }
+
+    fun saveProfile(view: View) {
+        getData()
+        sendUser()
+        finish()
     }
 }
