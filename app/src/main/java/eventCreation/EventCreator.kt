@@ -22,7 +22,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import event.Event
-import eventSearch.EventSearchActivity
 import java.io.File
 import java.util.Calendar
 import java.util.Date
@@ -67,7 +66,7 @@ class EventCreator : AppCompatActivity() {
     // TODO - Czekamy aż wiktor załata logowanie
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
 //    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
-    private val owner = FirebaseAuth.getInstance().currentUser!!.email
+    private val email = FirebaseAuth.getInstance().currentUser!!.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,19 +112,19 @@ class EventCreator : AppCompatActivity() {
         startActivityForResult(takePictureIntent, REQUEST_CODE)
 
         val storageRef = FirebaseStorage.getInstance().reference
-        val imagesRef = storageRef.child("images/$owner.jpg")
+        val imagesRef = storageRef.child("images/$email.jpg")
         imagesRef.putFile(photoFile.toUri())
     }
 
     private fun getPhotoFile(): File {
         val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(owner, ".jpg", storageDirectory)
+        return File.createTempFile(email, ".jpg", storageDirectory)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode== REQUEST_CODE&&resultCode== Activity.RESULT_OK){
             val storageRef = FirebaseStorage.getInstance().reference
-            val imagesRef = storageRef.child("images/$owner.jpg")
+            val imagesRef = storageRef.child("images/$email.jpg")
             imagesRef.putFile(photoFile.toUri())
         }
         else{
@@ -259,7 +258,7 @@ class EventCreator : AppCompatActivity() {
 
     private fun sendEvent() {
         val storageRef = FirebaseStorage.getInstance().reference
-        val imagesRef = storageRef.child("images/$owner.jpg")
+        val imagesRef = storageRef.child("images/$email.jpg")
         imagesRef.downloadUrl.addOnSuccessListener {
             val startDate = Date(startYear-1900, startMonth-1, startDay, startHour, startMin)
             val startTS = Timestamp(startDate)
@@ -267,7 +266,7 @@ class EventCreator : AppCompatActivity() {
             val endTS = Timestamp(endDate)
             val event = Event(
                 eventName,
-                owner,
+                email,
                 isOutdoor,
                 isBooze,
                 isPublic,

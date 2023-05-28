@@ -2,13 +2,13 @@ package eventSearch
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.piastcity.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -26,7 +26,8 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     // TODO - Czekamy aż wiktor załata logowanie zalatane kurwa
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
 //    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
-    private val owner = "fryta"
+    private val email = FirebaseAuth.getInstance().currentUser!!.email
+
     override fun onResume() {
         super.onResume()
         setSearchView()
@@ -88,35 +89,28 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     }
 
     override fun onItemLongClick(position: Int, event: Event) {
-            removeEventFromDatabase(event)
-            removeImageFromStorage(event)
-            eventList.removeAt(position)
-            recyclerView.adapter!!.notifyItemRemoved(position)
+        database.collection("events")
+            .whereEqualTo("name", event.name)
+            .whereEqualTo("owner", email)
+            .whereEqualTo("creation", event.creation)
+            .get().addOnSuccessListener {documents ->
+                if(!documents.isEmpty) {
+                    eventList.removeAt(position)
+                    recyclerView.adapter!!.notifyItemRemoved(position)
+                    val documentID = documents.documents[0].id
+                    database.collection("events")
+                        .document(documentID)
+                        .delete()
+                        .addOnSuccessListener {
+                            removeImageFromStorage(event)
+                        }
+                }
+            }
     }
 
     private fun removeImageFromStorage(event: Event) {
         val storageRef = FirebaseStorage.getInstance().reference
         event.imageUrl?.let { storageRef.storage.getReferenceFromUrl(it).delete() }
         //return result
-    }
-
-    private fun removeEventFromDatabase(event: Event):Boolean {
-        var result = false
-        database.collection("events")
-            .whereEqualTo("name", event.name)
-            //.whereEqualTo("owner", owner)
-            .whereEqualTo("creation", event.creation)
-            .get().addOnSuccessListener {documents ->
-                if(!documents.isEmpty) {
-                    val documentID = documents.documents[0].id
-                    database.collection("events")
-                        .document(documentID)
-                        .delete()
-                        .addOnSuccessListener {
-                            result = true
-                        }
-                }
-            }
-        return result
     }
 }
