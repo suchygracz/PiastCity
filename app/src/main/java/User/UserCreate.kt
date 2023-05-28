@@ -1,5 +1,6 @@
 package User
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,14 +21,13 @@ import java.io.File
 class UserCreate : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserCreateBinding;
-    private lateinit var firebaseAuth: FirebaseAuth;
+    private var firebaseAuth = FirebaseAuth.getInstance().currentUser
 
     var username: String? = null
-    var firebaseUser: String? = null
+    var firebaseUser: String? = firebaseAuth?.email
     private lateinit var userPhoto: File
-    private val owner = "fake"
+    //private val owner = "fake"
     private val REQUEST_CODE = 42
-    var imageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,32 +38,36 @@ class UserCreate : AppCompatActivity() {
 
     private fun getPhotoFile(): File {
         val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(owner, ".jpg", storageDirectory)
+        return File.createTempFile(firebaseUser, ".jpg", storageDirectory)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode== REQUEST_CODE&&resultCode== Activity.RESULT_OK){
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imagesRef = storageRef.child("users/$firebaseUser.jpg")
+            imagesRef.putFile(userPhoto.toUri())
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     private fun getData(){
         username = binding.userNameInput.text.toString();
-        firebaseUser = firebaseAuth.currentUser!!.uid
-        userPhoto = getPhotoFile()
-
+        firebaseUser = firebaseAuth?.email
     }
 
     private fun sendUser() {
         val storageRef = FirebaseStorage.getInstance().reference
-        val imagesRef = storageRef.child("users/$owner.jpg")
-        imagesRef.putFile(userPhoto.toUri())
+        val imagesRef = storageRef.child("users/$firebaseUser.jpg")
         imagesRef.downloadUrl.addOnSuccessListener {
             val user = User(
-                username ,
+                username,
                 firebaseUser,
-                imageUrl
+                it.toString()
             )
-
             Firebase.firestore.collection("users").add(user)
         }
-        //.addOnFailureListener {
-        //                Toast.makeText(this, "huj nie udalo sie", Toast.LENGTH_LONG).show()
-        //            }
     }
 
     fun takeUserPhoto(view: View) {
