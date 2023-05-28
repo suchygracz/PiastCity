@@ -9,20 +9,23 @@
 
     <TextView
         android:id="@+id/Uzytkownik"
-        android:layout_width="161dp"
-        android:layout_height="35dp"
+        android:layout_width="160dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/acme"
         android:text="użytkownik"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toEndOf="@+id/Avatar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/Avatar" />
 
     <TextView
         android:id="@+id/Lokalizacja"
         android:layout_width="205dp"
         android:layout_height="28dp"
-        android:text="lokalizacja"
+        android:fontFamily="@font/acme"
         android:onClick="goToMaps"
+        android:text="lokalizacja"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/Uzytkownik"
@@ -35,6 +38,7 @@
         android:layout_height="550dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="0dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/Avatar">
 
         <ImageView
@@ -42,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="550dp"
             android:scaleType="centerCrop"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +85,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/like_switch"
         style="@style/CustomSwitch"
         />
@@ -101,8 +107,8 @@
 
         <ImageView
             android:id="@+id/AvatarPhoto"
-            android:layout_width="63dp"
-            android:layout_height="63dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,5 +127,5 @@
 <!--        android:inputType="text"-->
 <!--        android:text="Add a comment"-->
 <!--        app:layout_constraintStart_toStartOf="@+id/Avatar"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/cardView" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
