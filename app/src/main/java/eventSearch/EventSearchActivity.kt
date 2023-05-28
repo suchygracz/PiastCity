@@ -2,6 +2,7 @@ package eventSearch
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.OrientationEventListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     private lateinit var addEventButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventList: ArrayList<PartyEvent>
+    private var orientationEventListener: OrientationEventListener? = null
     // TODO - Czekamy aż wiktor załata logowanie
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
     private val owner = "fake"
@@ -40,6 +42,25 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     override fun onResume() {
         super.onResume()
         setSearchView()
+        orientationEventListener = object : OrientationEventListener(this) {
+            override fun onOrientationChanged(orientation: Int) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                if (orientation in 45..134 || orientation in 225..314) {
+                    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                } else {
+                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                }
+            }
+        }
+
+        orientationEventListener?.enable()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        orientationEventListener?.disable()
     }
 
     private fun setRecycler() {

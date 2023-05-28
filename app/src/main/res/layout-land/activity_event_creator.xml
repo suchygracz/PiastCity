@@ -29,10 +29,10 @@
         android:text="Poczatek"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.209"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEventName"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
 
     <EditText
         android:id="@+id/in_startDate"
@@ -44,26 +44,25 @@
         android:hint="dd-mm-yyyy"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_startDate"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewStart"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintVertical_bias="0.073" />
 
     <Button
         android:id="@+id/btn_startDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/in_startDate"
+        android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/in_startDate"
         android:layout_toRightOf="@+id/in_startDate"
         android:text="DATA"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toEndOf="@+id/textViewStart"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStart"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintStart_toEndOf="@+id/in_startDate"
+        app:layout_constraintTop_toBottomOf="@+id/editEventName"
+        app:layout_constraintVertical_bias="0.186" />
 
     <EditText
         android:id="@+id/in_startTime"
@@ -74,12 +73,12 @@
         android:layout_alignParentLeft="true"
         android:hint="gg:mm"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewEnd"
-        app:layout_constraintEnd_toStartOf="@+id/btn_startTime"
-        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStart"
-        app:layout_constraintVertical_bias="0.674" />
+        app:layout_constraintTop_toBottomOf="@+id/in_startDate"
+        app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/btn_startTime"
@@ -88,13 +87,14 @@
         android:layout_below="@+id/btn_startDate"
         android:layout_alignStart="@+id/btn_startDate"
         android:layout_alignLeft="@+id/btn_startDate"
+        android:layout_marginEnd="404dp"
         android:text="GODZ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.295"
-        app:layout_constraintStart_toEndOf="@+id/textViewStart"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toEndOf="@+id/in_startTime"
         app:layout_constraintTop_toBottomOf="@+id/btn_startDate"
-        app:layout_constraintVertical_bias="0.009" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <TextView
         android:id="@+id/textViewEnd"
@@ -103,24 +103,26 @@
         android:text="Koniec"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.683"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStart"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
 
     <Button
         android:id="@+id/btn_endDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/in_startDate"
+        android:layout_marginEnd="84dp"
         android:layout_toEndOf="@+id/in_startDate"
         android:layout_toRightOf="@+id/in_startDate"
         android:text="DATA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toEndOf="@+id/textViewEnd"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEnd"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/in_endDate"
+        app:layout_constraintTop_toBottomOf="@+id/editEventName"
+        app:layout_constraintVertical_bias="0.186" />
 
     <EditText
         android:id="@+id/in_endDate"
@@ -129,14 +131,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
         android:hint="dd-mm-yyyy"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_endDate"
-        app:layout_constraintHorizontal_bias="0.704"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_startDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewEnd"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.073" />
 
     <Button
         android:id="@+id/btn_endTime"
@@ -145,13 +148,15 @@
         android:layout_below="@+id/btn_startDate"
         android:layout_alignStart="@+id/btn_startDate"
         android:layout_alignLeft="@+id/btn_startDate"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="180dp"
         android:text="GODZ"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toEndOf="@+id/textViewEnd"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toEndOf="@+id/in_endTime"
         app:layout_constraintTop_toBottomOf="@+id/btn_endDate"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/in_endTime"
@@ -160,86 +165,90 @@
         android:layout_below="@+id/in_startDate"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_marginBottom="164dp"
         android:hint="gg:mm"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_endTime"
-        app:layout_constraintHorizontal_bias="0.704"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toEndOf="@+id/btn_startTime"
         app:layout_constraintTop_toBottomOf="@+id/in_endDate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="32dp"
         android:text="Zapisz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEventName"
-        app:layout_constraintVertical_bias="0.991" />
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toEndOf="@+id/btn_setLocalization"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_isPublic" />
 
     <CheckBox
         android:id="@+id/checkbox_isBooze"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
         android:minHeight="48dp"
         android:text="Alkohol"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintEnd_toStartOf="@+id/checkbox_isOutdoor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEventName"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintTop_toBottomOf="@+id/in_startTime"
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/checkbox_isPublic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
         android:minHeight="48dp"
         android:text="Publiczne"
-        app:layout_constraintBottom_toTopOf="@+id/btn_takePic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox_isOutdoor"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toEndOf="@+id/checkbox_isOutdoor"
+        app:layout_constraintTop_toBottomOf="@+id/btn_endTime"
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/checkbox_isOutdoor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
         android:minHeight="48dp"
         android:text="Outdoor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox_isBooze"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/in_endTime"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_takePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Zdjecie"
-        app:layout_constraintBottom_toTopOf="@+id/btn_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_setLocalization"
+        app:layout_constraintHorizontal_bias="0.632"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox_isOutdoor"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_isBooze"
+        app:layout_constraintVertical_bias="0.264" />
 
     <Button
         android:id="@+id/btn_setLocalization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/btn_save"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="Lokalizacja"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_takePic"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_isOutdoor"
+        app:layout_constraintVertical_bias="0.264" />
 </androidx.constraintlayout.widget.ConstraintLayout>
