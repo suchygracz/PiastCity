@@ -7,15 +7,18 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.example.piastcity.R
 import com.example.piastcity.databinding.ActivityUserCreateBinding
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import eventSearch.EventSearchActivity
 import java.io.File
 
 class UserCreate : AppCompatActivity() {
@@ -53,7 +56,8 @@ class UserCreate : AppCompatActivity() {
     }
 
     private fun getData(){
-        username = binding.userNameInput.text.toString();
+        //username = binding.userNameInput.text.toString();
+        username = findViewById<EditText>(R.id.userNameInput).text.toString()
         firebaseUser = firebaseAuth?.email
     }
 
@@ -82,6 +86,8 @@ class UserCreate : AppCompatActivity() {
     fun saveProfile(view: View) {
         getData()
         sendUser()
+        val intentapp = Intent(this, EventSearchActivity::class.java)
+        startActivity(intentapp)
         finish()
     }
 }

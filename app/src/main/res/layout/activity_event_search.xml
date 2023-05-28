@@ -9,11 +9,11 @@
         android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/addEventButton"
+        app:layout_constraintTop_toTopOf="@id/addEventButton"
         app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,6 +24,7 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/eventRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
