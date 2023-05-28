@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserCreate"
+    tools:context="User.UserCreate"
     android:background="@drawable/login_bck">
 
 
