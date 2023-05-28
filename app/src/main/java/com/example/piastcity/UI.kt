@@ -3,6 +3,7 @@ package com.example.piastcity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
@@ -22,5 +23,10 @@ class UI : AppCompatActivity() {
     fun goToMaps(view: View) {
         val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
         startActivity(mapsIntent)
+//        startActivityForResult(intent, 42)
+//        var cos = intent.data
+//        Log.d("gownokurwa", cos.toString())
     }
+
+
 }
