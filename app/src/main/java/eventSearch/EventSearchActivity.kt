@@ -25,6 +25,7 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventList: ArrayList<PartyEvent>
     private val email = FirebaseAuth.getInstance().currentUser!!.email
+    private lateinit var orientationEventListener: OrientationEventListener
 
     override fun onResume() {
         super.onResume()
