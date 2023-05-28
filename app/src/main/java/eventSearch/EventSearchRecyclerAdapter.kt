@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.piastcity.R
+import com.squareup.picasso.Picasso
 import event.Event as PartyEvent
 
 class EventSearchRecyclerAdapter(
@@ -35,6 +37,7 @@ class EventSearchRecyclerAdapter(
        //holder.eventAddress.text = "Address: " + event.address jakos ogarnac wspolprace ze wspolrzednymi
         holder.eventOwner.text = "Owner: ${event.owner}"
         holder.eventType.text = "Type: $type"
+        Picasso.get().load(event.imageUrl).error(R.mipmap.ic_launcher).into(holder.eventImage)
     }
 
     interface OnItemListener{
@@ -53,6 +56,7 @@ class EventSearchRecyclerAdapter(
         val eventOwner: TextView
         val eventAddress: TextView
         val eventType: TextView
+        val eventImage: ImageView
         init {
             this.events = events
             this.onItemListener = onItemListener
@@ -64,6 +68,7 @@ class EventSearchRecyclerAdapter(
             eventOwner = itemView.findViewById(R.id.eventOwner)
             eventAddress = itemView.findViewById(R.id.eventAddress)
             eventType = itemView.findViewById(R.id.eventType)
+            eventImage = itemView.findViewById(R.id.eventImageView)
         }
 
         override fun onClick(p0: View?) {
