@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -16,6 +17,9 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.type.LatLng
 
 /**
  * This demo shows how GMS Location can be used to check for changes to the users location.  The
@@ -33,18 +37,29 @@ class MyLocationDemoActivity : AppCompatActivity(),
      */
     private var permissionDenied = false
     private lateinit var map: GoogleMap
+    private var ischosen = false
+    private lateinit var chooseBtn : Button
+    private lateinit var marker: Marker
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.my_location_demo)
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
+        chooseBtn = findViewById(R.id.btn_choose)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
+
+        googleMap.setOnMapClickListener {
+            map.clear()
+            marker = map.addMarker(MarkerOptions().position(it))!!
+        }
+
         enableMyLocation()
     }
 
