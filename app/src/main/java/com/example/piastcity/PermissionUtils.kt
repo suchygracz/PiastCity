@@ -12,15 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 
-/**
- * Utility class for access to runtime permissions.
- */
 object PermissionUtils {
 
-    /**
-     * Requests the fine and coarse location permissions. If a rationale with an additional
-     * explanation should be shown to the user, displays a dialog that triggers the request.
-     */
     fun requestLocationPermissions(
         activity: AppCompatActivity,
         requestId: Int,
@@ -51,13 +44,6 @@ object PermissionUtils {
             )
         }
     }
-
-    /**
-     * Checks if the result contains a [PackageManager.PERMISSION_GRANTED] result for a
-     * permission from a runtime permissions request.
-     *
-     * @see androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
-     */
     @JvmStatic
     fun isPermissionGranted(
         grantPermissions: Array<String>, grantResults: IntArray,
@@ -71,9 +57,6 @@ object PermissionUtils {
         return false
     }
 
-    /**
-     * A dialog that displays a permission denied message.
-     */
     class PermissionDeniedDialog : DialogFragment() {
         private var finishActivity = false
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -99,10 +82,6 @@ object PermissionUtils {
         companion object {
             private const val ARGUMENT_FINISH_ACTIVITY = "finish"
 
-            /**
-             * Creates a new instance of this dialog and optionally finishes the calling Activity
-             * when the 'Ok' button is clicked.
-             */
             @JvmStatic
             fun newInstance(finishActivity: Boolean): PermissionDeniedDialog {
                 val arguments = Bundle().apply {
@@ -115,15 +94,6 @@ object PermissionUtils {
         }
     }
 
-    /**
-     * A dialog that explains the use of the location permission and requests the necessary
-     * permission.
-     *
-     *
-     * The activity should implement
-     * [androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback]
-     * to handle permit or denial of this permission request.
-     */
     class RationaleDialog : DialogFragment() {
         private var finishActivity = false
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -165,19 +135,6 @@ object PermissionUtils {
             private const val ARGUMENT_PERMISSION_REQUEST_CODE = "requestCode"
             private const val ARGUMENT_FINISH_ACTIVITY = "finish"
 
-            /**
-             * Creates a new instance of a dialog displaying the rationale for the use of the location
-             * permission.
-             *
-             *
-             * The permission is requested after clicking 'ok'.
-             *
-             * @param requestCode    Id of the request that is used to request the permission. It is
-             * returned to the
-             * [androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback].
-             * @param finishActivity Whether the calling Activity should be finished if the dialog is
-             * cancelled.
-             */
             fun newInstance(
                 requestCode: Int,
                 finishActivity: Boolean

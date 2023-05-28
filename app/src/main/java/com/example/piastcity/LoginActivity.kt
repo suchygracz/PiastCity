@@ -44,9 +44,6 @@ class LoginActivity : AppCompatActivity() {
 
     fun Login(view: View) {
         if (isEmailValid(view) and isPasswordValid(view)){
-            //firebaseAuth.signInWithEmailAndPassword(email, password)
-            //Toast.makeText(this, "logged in",Toast.LENGTH_LONG).show()
-            //val user: FirebaseUser? = firebaseAuth.currentUser
             loginUser(email, password)
 
             firestore.collection("users")
