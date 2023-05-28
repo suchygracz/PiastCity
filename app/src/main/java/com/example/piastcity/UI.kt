@@ -8,6 +8,9 @@ import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+import com.example.piastcity.PermissionUtils
+import com.example.piastcity.PermissionUtils.requestLocationPermissions
+
 class UI : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +20,7 @@ class UI : AppCompatActivity() {
     }
 
     fun goToMaps(view: View) {
-        val mapsIntent = Intent(this, MapsActivity::class.java)
+        val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
         startActivity(mapsIntent)
     }
 }
