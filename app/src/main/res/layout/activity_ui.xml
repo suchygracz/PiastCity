@@ -66,6 +66,7 @@
         android:background="@color/fui_transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/map_button"
+        android:onClick="goToMaps"
         app:layout_constraintStart_toStartOf="@id/LikeButton"
         app:layout_constraintTop_toTopOf="@id/cardView" />
 

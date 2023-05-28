@@ -1,5 +1,6 @@
 package com.example.piastcity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,8 @@ class UI : AppCompatActivity() {
         Toast.makeText(this, user, Toast.LENGTH_LONG ).show()
     }
 
-
-    fun goToMaps(view: View) {}
+    fun goToMaps(view: View) {
+        val mapsIntent = Intent(this, MapsActivity::class.java)
+        startActivity(mapsIntent)
+    }
 }
