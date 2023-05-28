@@ -26,10 +26,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-        mMap.setOnMapLongClickListener {
-
-        }
     }
     /**
      * Manipulates the map once available.
@@ -43,6 +39,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         googleMap.setMinZoomPreference(13f)
+        var sydney = LatLng(51.107883, 17.038538)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }
