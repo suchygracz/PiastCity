@@ -5,18 +5,22 @@ import com.google.firebase.Timestamp
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.example.piastcity.MyLocationDemoActivity
 import com.example.piastcity.R
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -58,6 +62,8 @@ class EventCreator : AppCompatActivity() {
     private var isPublic  = false
 
     private val REQUEST_CODE = 42
+    private val REQUEST_CODE_KIKUS = 69
+    public val REQUEST_RESULT = "REQUEST_RESULT"
     private lateinit var photoFile: File
     private lateinit var btnSetLocation: Button
     private var longitude = 0.0
@@ -121,7 +127,7 @@ class EventCreator : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode== REQUEST_CODE&&resultCode== Activity.RESULT_OK){
+        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
             val storageRef = FirebaseStorage.getInstance().reference
             val imagesRef = storageRef.child("images/$email.jpg")
             imagesRef.putFile(photoFile.toUri())
@@ -129,6 +135,15 @@ class EventCreator : AppCompatActivity() {
         else{
             super.onActivityResult(requestCode, resultCode, data)
 
+        }
+
+        if(requestCode == REQUEST_CODE_KIKUS && resultCode == Activity.RESULT_OK){
+//            val storageRef = FirebaseStorage.getInstance().reference
+//            val imagesRef = storageRef.child("images/$owner.jpg")
+//            imagesRef.putFile(photoFile.toUri())
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -225,8 +240,16 @@ class EventCreator : AppCompatActivity() {
 
     private fun buttonSetLocalization(){
         val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
-        startActivity(mapsIntent)
+//        startActivity(mapsIntent)
+//        getContent.launch("string/*")
+//        var cos = intent.data
+//        Log.d("gownokurwa", cos.toString())
     }
+
+    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        // Handle the returned Uri
+    }
+
 
     private fun getData(){
         eventName = editTextName.text.toString()
