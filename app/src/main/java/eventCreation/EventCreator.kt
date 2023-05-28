@@ -21,6 +21,7 @@ import androidx.core.net.toUri
 import com.example.piastcity.MyLocationDemoActivity
 import com.example.piastcity.R
 import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -240,6 +241,7 @@ class EventCreator : AppCompatActivity() {
 
     private fun buttonSetLocalization(){
         val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
+        mapsIntent.putExtra("isCreator", true)
         startActivityForResult(mapsIntent, REQUEST_CODE_KIKUS)
     }
 

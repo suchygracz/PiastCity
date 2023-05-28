@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.piastcity.MyLocationDemoActivity
 import com.example.piastcity.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -85,7 +86,11 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     }
 
     override fun onItemClick(position: Int, event: Event) {
-        // like the event
+        val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
+        mapsIntent.putExtra("isCreator", false)
+        mapsIntent.putExtra("localization_longitude", event.longitude)
+        mapsIntent.putExtra("localization_latitude", event.latitude)
+        startActivityForResult(mapsIntent, 69)
     }
 
     override fun onItemLongClick(position: Int, event: Event) {
