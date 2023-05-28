@@ -2,6 +2,7 @@ package eventSearch
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.OrientationEventListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,25 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     override fun onResume() {
         super.onResume()
         setSearchView()
+        orientationEventListener = object : OrientationEventListener(this) {
+            override fun onOrientationChanged(orientation: Int) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                if (orientation in 45..134 || orientation in 225..314) {
+                    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                } else {
+                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                }
+            }
+        }
+
+        orientationEventListener?.enable()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        orientationEventListener?.disable()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
