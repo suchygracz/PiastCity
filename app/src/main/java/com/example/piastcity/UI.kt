@@ -23,9 +23,6 @@ class UI : AppCompatActivity() {
     fun goToMaps(view: View) {
         val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
         startActivity(mapsIntent)
-//        startActivityForResult(intent, 42)
-//        var cos = intent.data
-//        Log.d("gownokurwa", cos.toString())
     }
 
 

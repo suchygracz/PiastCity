@@ -54,7 +54,8 @@
 
         <activity
             android:name="eventCreation.EventCreator"
-            android:exported="false" />
+            android:exported="true" />
+
         <activity
             android:name=".UI"
             android:exported="true" />

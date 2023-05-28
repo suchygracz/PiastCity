@@ -96,6 +96,15 @@ class EventCreator : AppCompatActivity() {
         btnTakePic = findViewById(R.id.btn_takePic)
         checkBoxIsPublic = findViewById(R.id.checkbox_isPublic)
         btnSetLocation = findViewById(R.id.btn_setLocalization)
+
+        if (intent.getStringExtra("longitude") != null)
+        {
+            longitude = intent.getStringExtra("longitude")!!.toDouble()
+            latitude = intent.getStringExtra("latitude")!!.toDouble()
+        }
+
+        Log.d("gownokurwaLONGITUDE", longitude.toString())
+        Log.d("gownokurwaLATIDUE", latitude.toString())
     }
 
     private fun setActions(){
@@ -135,15 +144,6 @@ class EventCreator : AppCompatActivity() {
         else{
             super.onActivityResult(requestCode, resultCode, data)
 
-        }
-
-        if(requestCode == REQUEST_CODE_KIKUS && resultCode == Activity.RESULT_OK){
-//            val storageRef = FirebaseStorage.getInstance().reference
-//            val imagesRef = storageRef.child("images/$owner.jpg")
-//            imagesRef.putFile(photoFile.toUri())
-        }
-        else{
-            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -240,14 +240,7 @@ class EventCreator : AppCompatActivity() {
 
     private fun buttonSetLocalization(){
         val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
-//        startActivity(mapsIntent)
-//        getContent.launch("string/*")
-//        var cos = intent.data
-//        Log.d("gownokurwa", cos.toString())
-    }
-
-    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        // Handle the returned Uri
+        startActivityForResult(mapsIntent, REQUEST_CODE_KIKUS)
     }
 
 
