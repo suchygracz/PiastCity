@@ -76,7 +76,8 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
         addEventButton = findViewById(R.id.addEventButton)
         refreshButton = findViewById(R.id.refreshButton)
         addEventButton.setOnClickListener {
-            val goToEventCreator = Intent(this, EventCreator::class.java)
+            val goToEventCreator = Intent(this, MyLocationDemoActivity::class.java)
+            goToEventCreator.putExtra("isCreator", true)
             startActivity(goToEventCreator)
             setSearchView()
         }

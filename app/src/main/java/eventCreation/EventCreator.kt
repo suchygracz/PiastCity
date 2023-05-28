@@ -93,10 +93,9 @@ class EventCreator : AppCompatActivity() {
         checkBoxIsOutdoor = findViewById(R.id.checkbox_isOutdoor)
         btnTakePic = findViewById(R.id.btn_takePic)
         checkBoxIsPublic = findViewById(R.id.checkbox_isPublic)
-        btnSetLocation = findViewById(R.id.btn_setLocalization)
+        //btnSetLocation = findViewById(R.id.btn_setLocalization)
 
-        if (intent.getStringExtra("longitude") != null)
-        {
+        if (intent.getStringExtra("longitude") != null) {
             longitude = intent.getStringExtra("longitude")!!.toDouble()
             latitude = intent.getStringExtra("latitude")!!.toDouble()
         }
@@ -112,7 +111,7 @@ class EventCreator : AppCompatActivity() {
         btnEndTime.setOnClickListener { buttonEndTime() }
         btnSave.setOnClickListener { buttonSave() }
         btnTakePic.setOnClickListener { buttonTakePic() }
-        btnSetLocation.setOnClickListener { buttonSetLocalization() }
+        //btnSetLocation.setOnClickListener { buttonSetLocalization() }
     }
 
     private fun buttonTakePic(){
@@ -236,11 +235,11 @@ class EventCreator : AppCompatActivity() {
     }
 
 
-    private fun buttonSetLocalization(){
-        val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
-        mapsIntent.putExtra("isCreator", true)
-        startActivityForResult(mapsIntent, REQUEST_CODE_KIKUS)
-    }
+//    private fun buttonSetLocalization(){
+//        val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
+//        mapsIntent.putExtra("isCreator", true)
+//        startActivityForResult(mapsIntent, REQUEST_CODE_KIKUS)
+//    }
 
 
     private fun getData(){
