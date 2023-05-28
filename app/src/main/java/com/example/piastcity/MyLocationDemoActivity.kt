@@ -43,6 +43,7 @@ class MyLocationDemoActivity : AppCompatActivity(),
     private var ischosen = false
     private lateinit var chooseBtn : Button
     private lateinit var marker: Marker
+    private var isCreator: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.my_location_demo)
@@ -52,18 +53,29 @@ class MyLocationDemoActivity : AppCompatActivity(),
 
         chooseBtn = findViewById(R.id.btn_choose)
 
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
-
-        googleMap.setOnMapClickListener {
-            map.clear()
-            marker = map.addMarker(MarkerOptions().position(it))!!
-            chooseBtn.setOnClickListener{ btn_choose(marker.position) }
+        isCreator = intent.getBooleanExtra("isCreator", false)
+        if (isCreator)
+        {
+            googleMap.setOnMapClickListener {
+                map.clear()
+                marker = map.addMarker(MarkerOptions().position(it))!!
+                chooseBtn.setOnClickListener{ btn_choose(marker.position) }
+            }
         }
+        else
+        {
+            chooseBtn.setOnClickListener{ finish() }
+            var loc = LatLng(intent.getDoubleExtra("localization_latitude", 0.0), intent.getDoubleExtra("localization_longitude", 0.0))
+            map.addMarker(MarkerOptions().position(loc))
+        }
+
         enableMyLocation()
     }
 
@@ -73,6 +85,7 @@ class MyLocationDemoActivity : AppCompatActivity(),
         returnIntent.putExtra("longitude", data.longitude.toString())
         returnIntent.putExtra("latitude", data.latitude.toString())
         startActivity(returnIntent)
+        finish()
     }
 
     /**
