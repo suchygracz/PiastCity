@@ -1,12 +1,17 @@
 package eventCreation
 
+import android.app.Activity
 import com.google.firebase.Timestamp
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+<<<<<<< HEAD
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+=======
+import android.graphics.BitmapFactory
+>>>>>>> ab1ea37 (Deleting images from storage + better storage usage)
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -113,11 +118,27 @@ class EventCreator : AppCompatActivity() {
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
         startActivityForResult(takePictureIntent, REQUEST_CODE)
+
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imagesRef = storageRef.child("images/$owner.jpg")
+        imagesRef.putFile(photoFile.toUri())
     }
 
     private fun getPhotoFile(): File {
         val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(owner, ".jpg", storageDirectory)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode== REQUEST_CODE&&resultCode== Activity.RESULT_OK){
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imagesRef = storageRef.child("images/$owner.jpg")
+            imagesRef.putFile(photoFile.toUri())
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data)
+
+        }
     }
 
     private fun buttonStartDate(){
@@ -246,7 +267,6 @@ class EventCreator : AppCompatActivity() {
     private fun sendEvent() {
         val storageRef = FirebaseStorage.getInstance().reference
         val imagesRef = storageRef.child("images/$owner.jpg")
-        imagesRef.putFile(photoFile.toUri())
         imagesRef.downloadUrl.addOnSuccessListener {
             val startDate = Date(startYear-1900, startMonth-1, startDay, startHour, startMin)
             val startTS = Timestamp(startDate)
