@@ -23,7 +23,7 @@ class EventSearchActivity : AppCompatActivity(), EventSearchRecyclerAdapter.OnIt
     private lateinit var addEventButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventList: ArrayList<PartyEvent>
-    // TODO - Czekamy aż wiktor załata logowanie
+    // TODO - Czekamy aż wiktor załata logowanie zalatane kurwa
     // val owner = FirebaseAuth.getInstance().currentUser!!.displayName
 //    private val owner = FirebaseAuth.getInstance().currentUser!!.uid
     private val owner = "fryta"
