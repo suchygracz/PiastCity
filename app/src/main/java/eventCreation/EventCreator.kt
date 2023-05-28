@@ -15,14 +15,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import com.example.piastcity.MapsActivity
+import com.example.piastcity.MyLocationDemoActivity
 import com.example.piastcity.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import event.Event
-import eventSearch.EventSearchActivity
 import java.io.File
 import java.util.Calendar
 import java.util.Date
@@ -226,7 +224,7 @@ class EventCreator : AppCompatActivity() {
 
 
     private fun buttonSetLocalization(){
-        val mapsIntent = Intent(this, MapsActivity::class.java)
+        val mapsIntent = Intent(this, MyLocationDemoActivity::class.java)
         startActivity(mapsIntent)
     }
 
