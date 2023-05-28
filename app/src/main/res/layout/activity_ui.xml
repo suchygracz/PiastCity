@@ -7,10 +7,38 @@
     tools:context=".UI"
     android:background="#000000">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Avatar"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="0dp"
+        >
+
+        <ImageView
+            android:id="@+id/AvatarPhoto"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars"
+            android:background="@drawable/roundstyle"
+            />
+
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/Uzytkownik"
-        android:layout_width="160dp"
-        android:layout_height="25dp"
+        android:layout_width="132dp"
+        android:layout_height="23dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/acme"
         android:text="użytkownik"
@@ -20,9 +48,9 @@
         app:layout_constraintTop_toTopOf="@+id/Avatar" />
 
     <TextView
-        android:id="@+id/Lokalizacja"
-        android:layout_width="205dp"
-        android:layout_height="28dp"
+        android:id="@+id/Localization"
+        android:layout_width="132dp"
+        android:layout_height="23dp"
         android:fontFamily="@font/acme"
         android:onClick="goToMaps"
         android:text="lokalizacja"
@@ -30,6 +58,24 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/Uzytkownik"
         app:layout_constraintTop_toBottomOf="@+id/Uzytkownik" />
+
+    <TextView
+        android:id="@+id/eventNamee"
+        android:layout_width="178dp"
+        android:layout_height="23dp"
+        android:fontFamily="@font/acme"
+        android:text="event name"
+        app:layout_constraintStart_toEndOf="@+id/Uzytkownik"
+        app:layout_constraintTop_toTopOf="@+id/Uzytkownik" />
+
+    <TextView
+        android:id="@+id/eventTypee"
+        android:layout_width="178dp"
+        android:layout_height="23dp"
+        android:fontFamily="@font/acme"
+        android:text="event type"
+        app:layout_constraintBottom_toBottomOf="@+id/Localization"
+        app:layout_constraintStart_toEndOf="@+id/Localization" />
 
     //stop
     <androidx.cardview.widget.CardView
@@ -40,7 +86,6 @@
         app:cardElevation="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginBottom="90dp"
         app:layout_constraintTop_toBottomOf="@id/Avatar">
 
         <ImageView
@@ -52,7 +97,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Lokalizacja"
+            app:layout_constraintTop_toBottomOf="@+id/Localization"
             app:srcCompat="@drawable/melong" />
 
     </androidx.cardview.widget.CardView>
@@ -94,35 +139,11 @@
 
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/Avatar"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="0dp"
-        >
 
-        <ImageView
-            android:id="@+id/AvatarPhoto"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:background="@drawable/roundstyle"
-            />
 
-    </androidx.cardview.widget.CardView>
 
-<!--    <EditText-->
+
+    <!--    <EditText-->
 <!--        android:id="@+id/Comments"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
