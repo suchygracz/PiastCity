@@ -22,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import eventCreation.EventCreator
 
 /**
  * This demo shows how GMS Location can be used to check for changes to the users location.  The
@@ -68,11 +69,10 @@ class MyLocationDemoActivity : AppCompatActivity(),
 
     private fun btn_choose(data: LatLng)
     {
-        var returnIntent = Intent()
-        returnIntent.putExtra("REQUEST_RESULT", 69)
-        returnIntent.data = Uri.parse(data.toString())
-        setResult(RESULT_OK, returnIntent)
-        finish()
+        var returnIntent = Intent(this, EventCreator::class.java)
+        returnIntent.putExtra("longitude", data.longitude.toString())
+        returnIntent.putExtra("latitude", data.latitude.toString())
+        startActivity(returnIntent)
     }
 
     /**
