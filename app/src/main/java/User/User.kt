@@ -1,4 +1,4 @@
-package com.example.piastcity
+package User
 
 import android.provider.ContactsContract.CommonDataKinds.Email
 import com.google.firebase.auth.FirebaseUser

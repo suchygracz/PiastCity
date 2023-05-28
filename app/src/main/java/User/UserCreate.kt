@@ -1,4 +1,4 @@
-package com.example.piastcity
+package User
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,17 +8,13 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import com.example.piastcity.databinding.ActivityLoginBinding
+import com.example.piastcity.R
 import com.example.piastcity.databinding.ActivityUserCreateBinding
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import event.Event
 import java.io.File
-import java.util.Date
 
 class UserCreate : AppCompatActivity() {
 

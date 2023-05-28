@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                     // Login successful
                     val user: FirebaseUser? = firebaseAuth.currentUser
                     // You can perform additional operations here, such as retrieving user data
-                    val appIntent = Intent(this, UI::class.java)
+                    val appIntent = Intent(this, EventSearchActivity::class.java)
                     startActivity(appIntent)
                     // zabij aktywność po przejściu dalej
                     finish()
