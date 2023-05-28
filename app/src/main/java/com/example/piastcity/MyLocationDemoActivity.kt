@@ -1,8 +1,10 @@
 package com.example.piastcity
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -17,9 +19,9 @@ import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.type.LatLng
 
 /**
  * This demo shows how GMS Location can be used to check for changes to the users location.  The
@@ -48,6 +50,7 @@ class MyLocationDemoActivity : AppCompatActivity(),
         mapFragment?.getMapAsync(this)
 
         chooseBtn = findViewById(R.id.btn_choose)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -58,9 +61,18 @@ class MyLocationDemoActivity : AppCompatActivity(),
         googleMap.setOnMapClickListener {
             map.clear()
             marker = map.addMarker(MarkerOptions().position(it))!!
+            chooseBtn.setOnClickListener{ btn_choose(marker.position) }
         }
-
         enableMyLocation()
+    }
+
+    private fun btn_choose(data: LatLng)
+    {
+        var returnIntent = Intent()
+        returnIntent.putExtra("REQUEST_RESULT", 69)
+        returnIntent.data = Uri.parse(data.toString())
+        setResult(RESULT_OK, returnIntent)
+        finish()
     }
 
     /**
